@@ -2,21 +2,37 @@
 const csv = require("csvtojson");
 const axios = require("axios");
 
+// class Order {
+//     id;
+//     notes;
+//     order_id;
+//     status;
+// }
 
-class ConvertService {
-    csvFilePath = './test.csv';
-    convert() {
+class CSVtoJsonService {
+    // csvFilePath = './test.csv';
+    constructor(csvFilePath) {
+        this.csvFilePath = csvFilePath;
+    }
+    generateJson() {
         csv().fromFile(this.csvFilePath)
                   .then((jsonObj =>{
-                    console.log(jsonObj)
-     }))
+                    console.log(jsonObj[0])
+         }))
+         //Return the conversions as an array of objects
     }
 
 }
 
-const logic = new ConvertService();
+// Class ConversionController { //I don't want to call it a controller
+//     //Has an instance of HTTP Client (makes requestions)
+//     //Has some sort of "#makeRequest" function that accepts either a single Order
+//     //"makeBatchRequest" takes array 
+// }
 
-logic.convert();
+const logic = new CSVtoJsonService('./test.csv');
+
+logic.generateJson();
 
 
 //Testing csv conversion
@@ -48,3 +64,4 @@ logic.convert();
 // }).catch(function(error){
 //     console.log(error)
 // });
+
