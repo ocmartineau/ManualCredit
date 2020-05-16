@@ -2,12 +2,15 @@
 const csv = require("csvtojson");
 const axios = require("axios");
 
-// class Order {
-//     id;
-//     notes;
-//     order_id;
-//     status;
-// }
+class Order {
+    constructor(id, notes, order_id, status){
+        this.id = id;
+        this.notes = notes;
+        this.order_id = order_id;
+        this.status = status;
+    }
+   
+}
 
 class CSVtoJsonService {
     // csvFilePath = './test.csv';
@@ -17,14 +20,17 @@ class CSVtoJsonService {
     generateJson() {
         csv().fromFile(this.csvFilePath)
                   .then((jsonObj =>{
-                    console.log(jsonObj[0])
-         }))
+                    // console.log(jsonObj[0].id)
+                    for(i = 0; i < jsonObj.length; i++){
+                        new Order(jsonObj[i].id, jsonObj[i].notes, jsonObj[i].order_id, jsonObj[i].status)
+                    }
+                }))
          //Return the conversions as an array of objects
     }
 
 }
 
-// Class ConversionController { //I don't want to call it a controller
+// class ConversionController { //I don't want to call it a controller
 //     //Has an instance of HTTP Client (makes requestions)
 //     //Has some sort of "#makeRequest" function that accepts either a single Order
 //     //"makeBatchRequest" takes array 
