@@ -1,4 +1,5 @@
 //Initialize Dependencies
+const dotenv = require('dotenv').config({path: __dirname + '/.env'}),
 const csv = require("csvtojson");
 const axios = require("axios");
 
@@ -14,25 +15,35 @@ class Order {
 
 class CSVtoJsonService {
     // csvFilePath = './test.csv';
-    constructor(csvFilePath) {
+    constructor(csvFilePath, config) {
         this.csvFilePath = csvFilePath;
+        this.config = config;
     }
-    generateJson() {
-        csv().fromFile(this.csvFilePath)
-                  .then((jsonObj =>{
-                    // console.log(jsonObj[0].id)
-                    for(i = 0; i < jsonObj.length; i++){
-                        axios({
-                            method: 'post',
-                            url: '',
-                            data: {
-                                
-                            }
-                        })
-                    }
-                }))
-         //Return the conversions as an array of objects
-    }
+    // generateJson() {
+    //     csv().fromFile(this.csvFilePath)
+    //               .then((jsonObj =>{
+    //                 // console.log(jsonObj[0].id)
+    //                 for(let i = 0; i < jsonObj.length; i++){
+    //                     axios({
+    //                         method: 'post',
+    //                         url: 'https://www.refersion.com/api/manual_credit_order_id',
+    //                         data: {
+
+    //                             'id': jsonObj[i].id,
+    //                             'notes': jsonObj[i].notes,
+    //                             'order_id': jsonObj[i].order_id,
+    //                             'status': jsonObj[i].status
+
+    //                         },
+    //                         headers: {
+    //                             'Content-Type': 'application/json',
+    //                             'Refersion-Public-Key': 'pub_f5e8e8370bc7bae15db7',
+    //                             'Refersion-Secret-Key':	'sec_ec9455dce6afa909035b'
+    //                         }
+    //                     })
+    //                 }
+    //             }))
+    // }
 
 }
 
@@ -42,9 +53,9 @@ class CSVtoJsonService {
 //     //"makeBatchRequest" takes array 
 // }
 
-const logic = new CSVtoJsonService('./test.csv');
+// const logic = new CSVtoJsonService('./test.csv');
 
-logic.generateJson();
+// logic.generateJson();
 
 
 //Testing csv conversion
@@ -77,3 +88,26 @@ logic.generateJson();
 //     console.log(error)
 // });
 
+function test(){
+    axios({
+        method: 'post',
+        url: 'https://www.refersion.com/api/manual_credit_order_id',
+        data: {
+
+            'id': '4016927',
+            'notes': 'This is test 1021',
+            'order_id': '1021',
+            'status': 'APPROVED'
+
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'Refersion-Public-Key': process.env.pubKey
+            'Refersion-Secret-Key':	process.env.secKey
+        }
+    }).then(function(response){
+        console.log(response)
+    });
+};
+
+test();
