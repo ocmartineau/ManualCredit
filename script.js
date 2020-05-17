@@ -1,5 +1,5 @@
 //Initialize Dependencies
-const dotenv = require('dotenv').config({path: __dirname + '/.env'}),
+require('dotenv').config({path: __dirname + '/.env'});
 const csv = require("csvtojson");
 const axios = require("axios");
 
@@ -88,26 +88,52 @@ class CSVtoJsonService {
 //     console.log(error)
 // });
 
-function test(){
+function orderTest(){
     axios({
         method: 'post',
         url: 'https://www.refersion.com/api/manual_credit_order_id',
         data: {
 
-            'id': '4016927',
-            'notes': 'This is test 1021',
-            'order_id': '1021',
+            'id': '4113082',
+            'notes': 'This is test 1020',
+            'order_id': '1020',
             'status': 'APPROVED'
 
         },
         headers: {
             'Content-Type': 'application/json',
-            'Refersion-Public-Key': process.env.pubKey
+            'Refersion-Public-Key': process.env.pubKey,
             'Refersion-Secret-Key':	process.env.secKey
         }
     }).then(function(response){
-        console.log(response)
+        console.log(`This request is ${response.statusText} with a status code of ${response.status}`)
+        console.log(response.data)
     });
 };
 
-test();
+function commissionTest(){
+    axios({
+        method: 'post',
+        url: 'https://www.refersion.com/api/manual_commission_credit',
+        data: {
+
+            'id': '4113082',
+            'commission': 1.00,
+            'notes': 'This is test a commission test 2',
+            'status': 'PENDING',
+            'currency':'USD'
+
+        },
+        headers: {
+            'Content-Type': 'application/json',
+            'Refersion-Public-Key': process.env.pubKey,
+            'Refersion-Secret-Key':	process.env.secKey
+        }
+    }).then(function(response){
+        console.log(`This request is ${response.statusText} with a status code of ${response.status}`)
+        console.log(response.data)
+    });
+};
+
+orderTest();
+// commissionTest();
