@@ -22,7 +22,13 @@ class CSVtoJsonService {
                   .then((jsonObj =>{
                     // console.log(jsonObj[0].id)
                     for(i = 0; i < jsonObj.length; i++){
-                        new Order(jsonObj[i].id, jsonObj[i].notes, jsonObj[i].order_id, jsonObj[i].status)
+                        axios({
+                            method: 'post',
+                            url: '',
+                            data: {
+                                
+                            }
+                        })
                     }
                 }))
          //Return the conversions as an array of objects
