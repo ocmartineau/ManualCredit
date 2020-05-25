@@ -45,6 +45,7 @@ class CSVtoJsonService {
     //             }))
     // }
 
+    
 }
 
 // class ConversionController { //I don't want to call it a controller
@@ -58,12 +59,12 @@ class CSVtoJsonService {
 // logic.generateJson();
 
 
-//Testing csv conversion
-// const csvFilePath = './test.csv';
-// csv().fromFile(csvFilePath)
-//      .then((jsonObj =>{
-//          console.log(jsonObj)
-//      }));
+// Testing csv conversion
+const csvFilePath = './manualcommissions.csv';
+csv().fromFile(csvFilePath)
+     .then((jsonObj =>{
+         console.log(jsonObj)
+     }));
 
 
 //Configuring Axios parameters
@@ -135,5 +136,5 @@ function commissionTest(){
     });
 };
 
-orderTest();
+// orderTest();
 // commissionTest();
