@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ocmartineau/ManualCredit/issues"
   },
-  "homepage": "https://github.com/ocmartineau/ManualCredit#readme"
+  "homepage": "https://github.com/ocmartineau/ManualCredit#readme",
+  "dependencies": {
+    "convert-csv-to-array": "^1.0.3"
+  }
 }
