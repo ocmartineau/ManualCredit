@@ -2,25 +2,26 @@
 require('dotenv').config({path: __dirname + '/.env'});
 const csv = require("csvtojson");
 const axios = require("axios");
+const fs = require('fs');
 
 
 
 
 
 // Testing csv conversion
-const csvFilePath = './manualcredits.csv';
-csv().fromFile(csvFilePath)
-     .then((jsonObj =>{
-        //  parseInt(jsonObj[0].id);
-        console.log(jsonObj[0].id);
-        console.log(typeof jsonObj[0].id);
-        let id = Number(jsonObj[0].id);
-        let orderId = Number(jsonObj[0].order_id)
-        console.log(id);
-        console.log(typeof id);
+const csvFilePath = './manualcredits.txt';
+// csv().fromFile(csvFilePath)
+//      .then((jsonObj =>{
+//         //  parseInt(jsonObj[0].id);
+//         console.log(jsonObj[0].id);
+//         console.log(typeof jsonObj[0].id);
+//         let id = Number(jsonObj[0].id);
+//         let orderId = Number(jsonObj[0].order_id)
+//         console.log(id);
+//         console.log(typeof id);
 
 
-}));
+// }));
 
 
 //Configuring Axios parameters
@@ -49,26 +50,36 @@ function orderTest(){
    
     csv().fromFile(csvFilePath)
                 .then((jsonObj =>{
-                // console.log(jsonObj[0].id)
-                // for(let i = 0; i < jsonObj.length; i++){
-                //     axios({
-                //         method: 'POST',
-                //         url: 'https://www.refersion.com/api/manual_credit_order_id',
-                //         data: {
+                console.log(jsonObj[0].id)
+                for(let i = 0; i < jsonObj.length; i++){
+                    let id = Number(jsonObj[i].id);
+                    let order_id = Number(jsonObj[i].order_id)
+                    axios({
+                        method: 'POST',
+                        url: 'https://www.refersion.com/api/manual_credit_order_id',
+                        data: {
 
-                //             'id': jsonObj[i].id,
-                //             'notes': jsonObj[i].notes,
-                //             'order_id': jsonObj[i].order_id,
-                //             'status': jsonObj[i].status
+                            'id': id,
+                            'notes': jsonObj[i].notes,
+                            'order_id': order_id,
+                            'status': jsonObj[i].status
 
-                //         },
-                //         headers: {
-                //             'Content-Type': 'application/json',
-                //             'Refersion-Public-Key': 'pub_f5e8e8370bc7bae15db7',
-                //             'Refersion-Secret-Key':	'sec_ec9455dce6afa909035b'
-                //         }
-                //     })
-                // }
+                        },
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Refersion-Public-Key': 'pub_f5e8e8370bc7bae15db7',
+                            'Refersion-Secret-Key':	'sec_ec9455dce6afa909035b'
+                        }
+                    }).then(function(response){
+                        console.log(`For ${order_id} ${response.statusText}`)
+                    }).catch(function (error) {
+                        console.log(error.response.data);
+                        const results = JSON.stringify(error.response.data) + '\r\n';
+                        fs.appendFile('./testerino/writetest.txt', results, function (err) {
+                            if (err) throw err;
+                        })
+                    })
+                }
             }))
         
     // axios({

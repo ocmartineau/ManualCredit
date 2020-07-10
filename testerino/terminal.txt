@@ -1,0 +1,2 @@
+split --additional-suffix=.txt -l2 test.txt testerino/test_split
+sed -i '1s/^/id,notes,order_id,status\n/' todo.txt
